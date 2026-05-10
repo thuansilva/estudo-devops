@@ -1,0 +1,63 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: conduit_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - conduit_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET}
+    container_name: conduit_backend
+    environment:
+      - PORT=${BACKEND_PORT}
+      - DEV_DB_USERNAME=${DEV_DB_USERNAME}
+      - DEV_DB_PASSWORD=${DEV_DB_PASSWORD}
+      - DEV_DB_NAME=${DEV_DB_NAME}
+      - DEV_DB_HOSTNAME=${DEV_DB_HOSTNAME}
+      - DEV_DB_DIALECT=${DEV_DB_DIALECT}
+    ports:
+      - "${BACKEND_PORT}:3001"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    networks:
+      - conduit_network
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET}
+    container_name: conduit_frontend
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - conduit_network
+    depends_on:
+      - backend
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  db_data:
+
+networks:
+  conduit_network:

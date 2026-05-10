@@ -1,0 +1,36 @@
+# Projeto de Aprendizado: Escalonamento e Observabilidade
+
+## Objetivo
+Aprender e aplicar conceitos de escalonamento (scaling) e observabilidade em uma aplicação real (Conduit RealWorld App), realizando o deploy em uma VPS.
+Ao final, documentar toda a jornada em um artigo.
+
+## Tópicos e Tarefas
+
+### 1. Preparação do Ambiente
+- [ ] Resolver dependências do banco de dados (instalar `mysql2`).
+- [ ] Configuração de variáveis de ambiente (`.env`).
+- [ ] Teste de execução local para validar o funcionamento.
+
+### 2. Observabilidade (Observability)
+- [ ] **Logs**: Padronização de logs estruturados da aplicação.
+- [ ] **Métricas**: Coleta de métricas de saúde da aplicação (ex: com Prometheus).
+- [ ] **Tracing**: Rastreamento de requisições para identificar gargalos.
+- [ ] **Visualização**: Configuração de um painel (ex: Grafana ou stack ELK/Loki) na VPS.
+
+### 3. Escalonamento (Scaling) e Deploy (VPS)
+- [ ] **Containerização**: Criação de Dockerfile e docker-compose.
+- [ ] **Deploy na VPS**: Subir a aplicação conteinerizada na VPS.
+- [ ] **Load Balancing**: Configurar um balanceador de carga (ex: Nginx).
+- [ ] **Testes de Carga**: Usar ferramentas (ex: k6) para ver os limites da aplicação.
+- [ ] **Escalonamento Horizontal**: Subir múltiplas instâncias da aplicação e balancear a carga.
+
+### 4. Artigo Final
+- [ ] Rascunho das etapas e aprendizados.
+- [ ] Principais desafios enfrentados e resoluções.
+- [ ] Conclusões.
+
+---
+## Diário de Bordo (Registro de Progresso)
+
+- **Início**: Criação deste arquivo `.agent` para registro.
+- **Problema atual**: Notamos que o projeto está exigindo o `mysql2` para rodar os comandos do Sequelize, indicando a necessidade de instalá-lo ou configurar o banco corretamente.
